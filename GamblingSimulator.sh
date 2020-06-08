@@ -21,6 +21,8 @@ function betResult()
 	esac
 	echo $dailyAmount
 }
-
-betChance=$((RANDOM%2));
-dailyAmount=$(betResult $betChance);
+while ((dailyAmount<=150 && dailyAmount>=50 ))
+do
+	betChance=$((RANDOM%2));
+	dailyAmount=$(betResult $betChance);
+done
