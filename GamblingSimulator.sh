@@ -1,4 +1,4 @@
-#!/bin/bash -x
+
 
 choice=1;
 echo "Welcome To Gambling Simulator"
@@ -28,7 +28,7 @@ do
 	function todaysResult()
 	{
 		currentAmount=100;
-		while ((currentAmount<=150 && currentAmount>=50 ))
+		while ((currentAmount<=101 && currentAmount>=99 ))
 		do
 			betChance=$((RANDOM%2));
 			currentAmount=$(betResult $betChance);
@@ -36,7 +36,7 @@ do
 		echo $currentAmount
 
 	}
-	function unluckiestDay()
+	function lossDay()
 	{
 			amountLost=$((amountLost+50));
 			netResult=$((netResult-50));
@@ -46,7 +46,7 @@ do
 				largestLosingStreak=$netResult;
 			fi
 	}
-	function luckiestDay()
+	function gainDay()
 	{
 			amountWon=$((amountWon+50));
 			netResult=$((netResult+50))
@@ -62,16 +62,16 @@ do
 	largestWinningStreak=0;
 	largestLosingStreak=1500;
 
-	for ((dayCount=1+monthCount; dayCount<=30+monthCount; dayCount++ ))
+	for ((dayCount=1+monthCount; dayCount<=10+monthCount; dayCount++ ))
 	do
 		dailyAmount=100;
 		betAmount=1;
 		dailyAmount=$(todaysResult);
 		if((dailyAmount<100))
 		then
-		unluckiestDay;
+		lossDay;
 		else
-		luckiestDay;
+		gainDay;
 		fi
 	done
 
