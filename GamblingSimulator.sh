@@ -28,7 +28,7 @@ do
 	function todaysResult()
 	{
 		currentAmount=100;
-		while ((currentAmount<=101 && currentAmount>=99 ))
+		while ((currentAmount<=150 && currentAmount>=50 ))
 		do
 			betChance=$((RANDOM%2));
 			currentAmount=$(betResult $betChance);
@@ -62,7 +62,7 @@ do
 	largestWinningStreak=0;
 	largestLosingStreak=1500;
 
-	for ((dayCount=1+monthCount; dayCount<=10+monthCount; dayCount++ ))
+	for ((dayCount=1+monthCount; dayCount<=30+monthCount; dayCount++ ))
 	do
 		dailyAmount=100;
 		betAmount=1;
