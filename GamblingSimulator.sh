@@ -1,10 +1,8 @@
-#!/bin/bash -x
+
 
 echo "Welcome To Gambling Simulator"
 BET_LOSE=0;
 BET_WIN=1;
-dailyAmount=100;
-betAmount=1;
 
 function betResult()
 {
@@ -21,8 +19,33 @@ function betResult()
 	esac
 	echo $dailyAmount
 }
-while ((dailyAmount<=150 && dailyAmount>=50 ))
+amountWon=0;
+amountLost=0;
+netResult=0;
+for ((dayCount=1; dayCount<=20; dayCount++ ))
 do
-	betChance=$((RANDOM%2));
-	dailyAmount=$(betResult $betChance);
+	dailyAmount=100;
+	betAmount=1;
+
+	while ((dailyAmount<=150 && dailyAmount>=50 ))
+	do
+		betChance=$((RANDOM%2));
+		dailyAmount=$(betResult $betChance);
+	done
+	if((dailyAmount<100))
+	then
+		amountLost=$((amountLost+50));
+	else
+		amountWon=$((amountWon+50));
+	fi
 done
+echo "Amount Won = $amountWon"
+echo "Amount Lost = $amountLost"
+netResult=$((amountWon-amountLost));
+if ((netResult>=0))
+then
+	echo "Net Winnings = $netResult"
+else
+	netResult=$((netResult* -1 ));
+	echo "Net Loss = $netResult"
+fi
