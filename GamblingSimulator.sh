@@ -23,10 +23,8 @@ function betResult()
 amountWon=0;
 amountLost=0;
 netResult=0;
-winStreakAmount=0;
 largestWinningStreak=0;
 largestLosingStreak=0;
-loseStreakAmount=0;
 for ((dayCount=1; dayCount<=30; dayCount++ ))
 do
 	dailyAmount=100;
@@ -39,23 +37,24 @@ do
 	if((dailyAmount<100))
 	then
 		amountLost=$((amountLost+50));
-		loseStreakAmount=$((loseStreakAmount+50));
-		daysLost["Day"$dayCount]=$((loseStreakAmount));
-		if((largestLosingStreak<loseStreakAmount))
+		netResult=$((netResult-50));
+		daysLost["Day"$dayCount]=$((netResult));
+		if((largestLosingStreak>netResult))
 		then
-			largestLosingStreak=$loseStreakAmount;
+			largestLosingStreak=$netResult;
 		fi
 		winStreakAmount=0;
 	else
 		amountWon=$((amountWon+50));
-		winStreakAmount=$((winStreakAmount+50))
-		daysWon["Day"$dayCount]=$((winStreakAmount));
-		if((largestWinningStreak<winStreakAmount))
+		netResult=$((netResult+50))
+		daysWon["Day"$dayCount]=$netResult;
+		if((largestWinningStreak<netResult))
 		then
-			largestWinningStreak=$winStreakAmount;
+			largestWinningStreak=$netResult;
 		fi
 		loseStreakAmount=0;
 	fi
+	netResult=$((amountWon-amountLost));
 done
 echo "Wining Days are :" ${!daysWon[@]}
 echo "Losing Days are :" ${!daysLost[@]}
@@ -78,7 +77,7 @@ done
 
 echo "Amount Won = $amountWon"
 echo "Amount Lost = $amountLost"
-netResult=$((amountWon-amountLost));
+
 if ((netResult>=0))
 then
 	echo "Net Winnings = $netResult"
